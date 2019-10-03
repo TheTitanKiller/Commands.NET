@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Commands.NET
 {
+    /// <summary>
+    /// Represents a command.
+    /// </summary>
     public class Command
     {
         /// <summary>

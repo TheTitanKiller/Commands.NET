@@ -57,6 +57,9 @@ namespace Commands.NET
         public Task SendAsync(string content) => Connection.SendAsync(new ArraySegment<byte>(content.ToByteArray()), SocketFlags.None);
     }
 
+    /// <summary>
+    /// Represents a context in a local application.
+    /// </summary>
     public sealed class LocalContext : Context
     {
         /// <summary>
