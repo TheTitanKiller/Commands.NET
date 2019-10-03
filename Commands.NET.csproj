@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>G:\Bibliothèques\Documents\Visual Studio 2019\Projects\Commands.NET\Commands.NET.xml</DocumentationFile>
+  </PropertyGroup>
+
 </Project>
