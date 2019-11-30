@@ -1,0 +1,402 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Commands.NET</name>
+    </assembly>
+    <members>
+        <member name="T:Commands.NET.CommandAttribute">
+            <summary>
+            Marks a method as a command for your application.
+            </summary>
+        </member>
+        <member name="F:Commands.NET.CommandAttribute.Name">
+            <summary>
+            The name of the command.
+            </summary>
+        </member>
+        <member name="M:Commands.NET.CommandAttribute.#ctor(System.String)">
+            <summary>
+            Marks a method as a command for your application.
+            </summary>
+            <param name="name">The name of the command.</param>
+        </member>
+        <member name="T:Commands.NET.AliasesAttribute">
+            <summary>
+            Adds aliases of the name of your command.
+            </summary>
+        </member>
+        <member name="F:Commands.NET.AliasesAttribute.Aliases">
+            <summary>
+            The aliases usable to call the command.
+            </summary>
+        </member>
+        <member name="M:Commands.NET.AliasesAttribute.#ctor(System.String[])">
+            <summary>
+            Adds aliases of the name of your command.
+            </summary>
+            <param name="names">The aliases usable to call the command.</param>
+        </member>
+        <member name="T:Commands.NET.Command">
+            <summary>
+            Represents a command.
+            </summary>
+        </member>
+        <member name="F:Commands.NET.Command.Name">
+            <summary>
+            The name of the command.
+            </summary>
+        </member>
+        <member name="F:Commands.NET.Command.Self">
+            <summary>
+            The method this command encapsulates.
+            </summary>
+        </member>
+        <member name="F:Commands.NET.Command.Aliases">
+            <summary>
+            The aliases used to call the command.
+            </summary>
+        </member>
+        <member name="F:Commands.NET.Command.Arguments">
+            <summary>
+            The arguments of the command.
+            </summary>
+        </member>
+        <member name="P:Commands.NET.Command.HasAliases">
+            <summary>
+            <c>true</c> if the command's name has aliases, else <c>false</c>.
+            </summary>
+        </member>
+        <member name="M:Commands.NET.Command.#ctor(System.String,System.Reflection.MethodInfo,System.Collections.Generic.IReadOnlyList{System.String})">
+            <summary>
+            Creates a command usable in your application.
+            </summary>
+            <param name="name">The name of the command.</param>
+            <param name="self">The method this command encapsulates.</param>
+            <param name="aliases">The aliases used to call the command.</param>
+        </member>
+        <member name="M:Commands.NET.Command.Execute(Commands.NET.Context)">
+            <summary>
+            Executes the command on the given context.
+            </summary>
+            <param name="context">The context on which to execute the command.</param>
+            <returns>The result of the command, stored in a CommandResult struct.</returns>
+            <seealso cref="T:Commands.NET.CommandResult"/>
+        </member>
+        <member name="T:Commands.NET.CommandArgument">
+            <summary>
+            Represents a command's argument.
+            </summary>
+        </member>
+        <member name="F:Commands.NET.CommandArgument.Name">
+            <summary>
+            The name of the argument.
+            </summary>
+        </member>
+        <member name="F:Commands.NET.CommandArgument.ArgType">
+            <summary>
+            The type of the argument.
+            </summary>
+        </member>
+        <member name="F:Commands.NET.CommandArgument.IsOptional">
+            <summary>
+            <c>true</c> if the argument has a default value.
+            </summary>
+        </member>
+        <member name="F:Commands.NET.CommandArgument.IsMultiple">
+            <summary>
+            <c>true</c> if the argument uses the <c>params</c> keyword.
+            </summary>
+        </member>
+        <member name="F:Commands.NET.CommandArgument.DefaultValue">
+            <summary>
+            The default value of the argument.
+            </summary>
+        </member>
+        <member name="T:Commands.NET.CommandResult">
+            <summary>
+            Represents the result of a command's execution.
+            </summary>
+        </member>
+        <member name="P:Commands.NET.CommandResult.Exception">
+            <summary>
+            If an exception occured during the treatment, it's stored here.
+            </summary>
+        </member>
+        <member name="P:Commands.NET.CommandResult.IsSuccessful">
+            <summary>
+            If the command ended normally, <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Commands.NET.CommandResult.Result">
+            <summary>
+            The return value of the command, if any.
+            </summary>
+        </member>
+        <member name="M:Commands.NET.CommandResult.#ctor(System.Exception)">
+            <summary>
+            Used if the command threw an exception.
+            </summary>
+            <param name="exception">The exception that was thrown.</param>
+        </member>
+        <member name="M:Commands.NET.CommandResult.#ctor(System.Object)">
+            <summary>
+            Used if the command completed without errors.
+            </summary>
+            <param name="result">The return value of the command.</param>
+        </member>
+        <member name="M:Commands.NET.CommandResult.Equals(Commands.NET.CommandResult)">
+            <see cref="M:System.Object.Equals(System.Object)"/>
+        </member>
+        <member name="T:Commands.NET.Context">
+            <summary>
+            Represents the context in which a given command is executed.
+            </summary>
+        </member>
+        <member name="P:Commands.NET.Context.CommandArgs">
+            <summary>
+            The command's arguments values, separated by a space.
+            </summary>
+        </member>
+        <member name="P:Commands.NET.Context.User">
+            <summary>
+            The user who called the command.
+            </summary>
+        </member>
+        <member name="M:Commands.NET.Context.#ctor(System.String,Commands.NET.User)">
+            <summary>
+            Creates a Context used to call a command.
+            </summary>
+            <param name="args">The command's arguments values, separated by a space.</param>
+            <param name="user">The user who called the command.</param>
+        </member>
+        <member name="T:Commands.NET.NetworkContext">
+            <summary>
+            Represents a context in an application used on a network.
+            </summary>
+        </member>
+        <member name="P:Commands.NET.NetworkContext.Connection">
+            <summary>
+            The network socket from which the command was received.
+            </summary>
+        </member>
+        <member name="M:Commands.NET.NetworkContext.#ctor(System.String,Commands.NET.User,System.Net.Sockets.Socket)">
+            <summary>
+            Creates a Context used to call a command.
+            </summary>
+            <param name="args">The command's arguments values, separated by a space.</param>
+            <param name="user">The user who called the command.</param>
+            <param name="connection">The network socket from which the command was received.</param>
+        </member>
+        <member name="M:Commands.NET.NetworkContext.SendAsync(System.String)">
+            <summary>
+            Sends a message to the user using the current connection socket.
+            </summary>
+            <param name="content">The message to send.</param>
+            <returns>The Task currently running.</returns>
+        </member>
+        <member name="T:Commands.NET.LocalContext">
+            <summary>
+            Represents a context in a local application.
+            </summary>
+        </member>
+        <member name="P:Commands.NET.LocalContext.Answer">
+            <summary>
+            The stream used to answer the user.
+            </summary>
+        </member>
+        <member name="M:Commands.NET.LocalContext.#ctor(System.String,Commands.NET.User,System.IO.Stream)">
+            <summary>
+            Creates a Context used to call a command.
+            </summary>
+            <param name="args">The command's arguments values, separated by a space.</param>
+            <param name="user">The user who called the command.</param>
+            <param name="answer">The stream used to answer the user.</param>
+        </member>
+        <member name="M:Commands.NET.LocalContext.AnswerAsync(System.String)">
+            <summary>
+            Sends a message to the user using the current stream.
+            </summary>
+            <param name="content">The message to send.</param>
+            <returns>The Task currently running.</returns>
+        </member>
+        <member name="T:Commands.NET.CommandNotFoundException">
+            <summary>
+            The exception that is thrown when a given command is not found
+            in the list of registered commands.
+            </summary>
+        </member>
+        <member name="F:Commands.NET.CommandNotFoundException.CommandName">
+            <summary>
+            The name of the command that caused the exception.
+            </summary>
+        </member>
+        <member name="M:Commands.NET.CommandNotFoundException.#ctor">
+            <see cref="M:System.Exception.#ctor"/>
+        </member>
+        <member name="M:Commands.NET.CommandNotFoundException.#ctor(System.String)">
+            <see cref="M:System.Exception.#ctor(System.String)"/>
+        </member>
+        <member name="M:Commands.NET.CommandNotFoundException.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the Commands.NET.InvalidSignatureException class
+            with a specified error message and the name of the command that caused the exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="commandName">The name of the command that caused the exception.</param>
+        </member>
+        <member name="M:Commands.NET.CommandNotFoundException.#ctor(System.String,System.Exception)">
+            <see cref="M:System.Exception.#ctor(System.String,System.Exception)"/>
+        </member>
+        <member name="M:Commands.NET.CommandNotFoundException.#ctor(System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the Commands.NET.InvalidSignatureException class
+            with a specified error message, the name of the command that caused the exception
+            and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="commandName">The name of the command that caused the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="M:Commands.NET.CommandNotFoundException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <see cref="M:System.Exception.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)"/>
+        </member>
+        <member name="M:Commands.NET.CommandNotFoundException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <see cref="M:Commands.NET.CommandNotFoundException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)"/>
+        </member>
+        <member name="T:Commands.NET.InvalidSignatureException">
+            <summary>
+            The exception that is thrown when a method doesn't have the
+            right signature to be a command.
+            </summary>
+        </member>
+        <member name="F:Commands.NET.InvalidSignatureException.MethodName">
+            <summary>
+            The name of the method that caused the exception.
+            </summary>
+        </member>
+        <member name="M:Commands.NET.InvalidSignatureException.#ctor">
+            <see cref="M:System.Exception.#ctor"/>
+        </member>
+        <member name="M:Commands.NET.InvalidSignatureException.#ctor(System.String)">
+            <see cref="M:System.Exception.#ctor(System.String)"/>
+        </member>
+        <member name="M:Commands.NET.InvalidSignatureException.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the Commands.NET.InvalidSignatureException class
+            with a specified error message and the name of the method that caused the exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="methodName">The name of the method that caused the exception.</param>
+        </member>
+        <member name="M:Commands.NET.InvalidSignatureException.#ctor(System.String,System.Exception)">
+            <see cref="M:System.Exception.#ctor(System.String,System.Exception)"/>
+        </member>
+        <member name="M:Commands.NET.InvalidSignatureException.#ctor(System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the Commands.NET.InvalidSignatureException class
+            with a specified error message, the name of the method that caused the exception
+            and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="methodName">The name of the method that caused the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="M:Commands.NET.InvalidSignatureException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <see cref="M:System.Exception.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)"/>
+        </member>
+        <member name="M:Commands.NET.InvalidSignatureException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <see cref="M:Commands.NET.InvalidSignatureException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)"/>
+        </member>
+        <member name="T:Commands.NET.Tools">
+            <summary>
+            Static class containing useful functions.
+            </summary>
+        </member>
+        <member name="P:Commands.NET.Tools.CommandsList">
+            <summary>
+            The list of commands found by the <c>RegisterCommands</c> function.
+            </summary>
+        </member>
+        <member name="P:Commands.NET.Tools.CommandsInstance">
+            <summary>
+            The instance of the class holding the commands. Needed to invoke them.
+            </summary>
+        </member>
+        <member name="P:Commands.NET.Tools.TextEncoding">
+            <summary>
+            The text encoding to use in all your application. Default at UTF8.
+            </summary>
+        </member>
+        <member name="M:Commands.NET.Tools.RegisterCommands``1">
+            <summary>Registers all commands defined in the class T.</summary>
+            <typeparam name="T">The class where the commands are stored.</typeparam>
+            <remarks>The class holding the commands cannot be static.
+            Commands must have a return type of Task/ValueTask and cannot be static.
+            The first parameter must be a <c>Context</c>.</remarks>
+        </member>
+        <member name="M:Commands.NET.Tools.ExecuteCommand(Commands.NET.Context,System.String)">
+            <summary>
+            Executes the said command with the given context.
+            </summary>
+            <param name="context">The context of the command.</param>
+            <param name="name">The name of the command.</param>
+            <returns>The result value of the command, stored in a CommandResult struct.</returns>
+            <exception cref="T:Commands.NET.CommandNotFoundException"/>
+        </member>
+        <member name="M:Commands.NET.Tools.PrintError(System.Exception)">
+            <summary>
+            Writes the error's message and stacktrace to the console.
+            </summary>
+            <param name="e">The error to display.</param>
+        </member>
+        <member name="M:Commands.NET.Tools.CrashLog(System.Exception)">
+            <summary>
+            Generates a log file containing the given error.
+            </summary>
+            <param name="e">The error to write.</param>
+        </member>
+        <member name="M:Commands.NET.Tools.DefineTextEncoding(System.Text.Encoding)">
+            <summary>
+            Changes the text encoding of your application.
+            </summary>
+            <param name="e">The encoding to use.</param>
+        </member>
+        <member name="M:Commands.NET.Tools.ToByteArray(System.String)">
+            <summary>
+            Extension method to convert a string to a byte array, with the defined <c>TextEncoding</c>.
+            </summary>
+            <param name="s">The string to convert.</param>
+            <returns>The byte array containing the conversion of the string.</returns>
+        </member>
+        <member name="T:Commands.NET.User">
+            <summary>
+            Represents the base user of an application, with password encrypting methods.
+            </summary>
+        </member>
+        <member name="P:Commands.NET.User.Name">
+            <summary>
+            The name of the user.
+            </summary>
+        </member>
+        <member name="P:Commands.NET.User.Password">
+            <summary>
+            The password of the user.
+            </summary>
+        </member>
+        <member name="M:Commands.NET.User.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            Constructs or loads a user of your application.
+            </summary>
+            <param name="name">The name of the user.</param>
+            <param name="pass">The password of the user.</param>
+            <param name="load"><c>true</c> if loading the profile, <c>false</c> if new user.</param>
+        </member>
+        <member name="M:Commands.NET.User.CheckMdp(System.String)">
+            <summary>
+            Checks if the given password corresponds to the saved password of the user.
+            </summary>
+            <param name="pass">The password to check.</param>
+            <returns><c>true</c> if the passwords are equal, otherwise <c>false</c>.</returns>
+        </member>
+    </members>
+</doc>

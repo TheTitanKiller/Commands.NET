@@ -73,7 +73,7 @@ namespace Commands.NET
             string[] s = context.CommandArgs.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             List<object> tmp = new List<object>() { context };
             int i = 1, j = 0;
-            for (; i < Arguments.Count; i++, j++)
+            for (; i < Arguments.Count && j < s.Length; i++, j++)
             {
                 var arg = Arguments[i];
                 if (arg.IsOptional)

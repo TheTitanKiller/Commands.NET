@@ -26,7 +26,7 @@ namespace Commands.NET
         /// <param name="user">The user who called the command.</param>
         protected Context(string args, User user)
         {
-            CommandArgs = args;
+            CommandArgs = args ?? String.Empty;
             User = user;
         }
     }

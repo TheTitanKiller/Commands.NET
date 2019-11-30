@@ -6,17 +6,17 @@ namespace Commands.NET
     /// <summary>
     /// Represents the base user of an application, with password encrypting methods.
     /// </summary>
-    public abstract class User
+    public class User
     {
         private const int ITERATIONS = 2000;
         /// <summary>
         /// The name of the user.
         /// </summary>
-        public string Name { get; protected set; }
+        public virtual string Name { get; protected set; }
         /// <summary>
         /// The password of the user.
         /// </summary>
-        public string Password { get; protected set; }
+        public virtual string Password { get; protected set; }
 
         /// <summary>
         /// Constructs or loads a user of your application.
@@ -24,7 +24,7 @@ namespace Commands.NET
         /// <param name="name">The name of the user.</param>
         /// <param name="pass">The password of the user.</param>
         /// <param name="load"><c>true</c> if loading the profile, <c>false</c> if new user.</param>
-        protected User(string name, string pass, bool load)
+        public User(string name, string pass, bool load)
         {
             Name = name;
             Password = load ? pass : EncodeMdp(pass);

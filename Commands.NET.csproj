@@ -8,4 +8,10 @@
     <DocumentationFile>G:\Bibliothèques\Documents\Visual Studio 2019\Projects\Commands.NET\Commands.NET.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="ExampleProject\**" />
+    <EmbeddedResource Remove="ExampleProject\**" />
+    <None Remove="ExampleProject\**" />
+  </ItemGroup>
+
 </Project>

@@ -37,17 +37,19 @@ namespace Commands.NET
             MethodInfo[] methods = typeof(T).GetMethods();
             foreach (MethodInfo m in methods)
             {
-                if (m.IsDefined(typeof(CommandAttribute)))
-                    if (m.ReturnType.GetMethod(nameof(Task.GetAwaiter)) != null)
-                        if (!m.IsStatic)
-                            if (m.GetParameters()[0].ParameterType == typeof(Context))
-                                if (m.IsDefined(typeof(AliasesAttribute)))
-                                    CommandsList.Add(new Command(m.GetCustomAttribute<CommandAttribute>().Name, m, m.GetCustomAttribute<AliasesAttribute>().Aliases));
-                                else
-                                    CommandsList.Add(new Command(m.GetCustomAttribute<CommandAttribute>().Name, m, new List<string>()));
-                            else throw new InvalidSignatureException("The first argument of a command must be a Context.", m.Name);
-                        else throw new InvalidSignatureException("A static method cannot be a command.", m.Name);
-                    else throw new InvalidSignatureException("The return type of the method must derive from Task or ValueTask to be a command.", m.Name);
+                if (!m.IsDefined(typeof(CommandAttribute)))
+                    return;
+                if (m.ReturnType.GetMethod(nameof(Task.GetAwaiter)) == null)
+                    throw new InvalidSignatureException("The return type of the method must derive from Task or ValueTask to be a command.", m.Name);
+                if (m.IsStatic)
+                    throw new InvalidSignatureException("A static method cannot be a command.", m.Name);
+                if (!typeof(Context).IsAssignableFrom(m.GetParameters()[0].ParameterType))
+                    throw new InvalidSignatureException("The first argument of a command must be a Context.", m.Name);
+                if (m.IsDefined(typeof(AliasesAttribute)))
+                    CommandsList.Add(new Command(m.GetCustomAttribute<CommandAttribute>().Name, m, m.GetCustomAttribute<AliasesAttribute>().Aliases));
+                else
+                    CommandsList.Add(new Command(m.GetCustomAttribute<CommandAttribute>().Name, m, new List<string>()));
+                        
             }
         }
 
